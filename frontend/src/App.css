@@ -15,6 +15,7 @@ body {
 .app {
   height: 100vh;
   background-color: #f5f5f5;
+  overflow: hidden; /* 防止整个页面滚动 */
 }
 
 .chat-container {
@@ -134,6 +135,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 15px;
+  /* 在移动端确保消息区域有固定高度以实现独立滚动 */
+  height: 100%;
 }
 
 .message {
@@ -214,6 +217,12 @@ body {
 
 .message-form button:hover {
   background-color: #0056b3;
+}
+
+.image-input-area {
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
 }
 
 .image-input-area {
@@ -362,6 +371,9 @@ body {
 @media (max-width: 768px) {
   .chat-area {
     flex-direction: column;
+    height: 100vh; /* 确保聊天区域占满整个视口高度 */
+    display: flex;
+    flex-direction: column;
   }
   
   .users-panel {
@@ -369,6 +381,25 @@ body {
     border-right: none;
     border-bottom: 1px solid #eee;
     height: 150px;
+    max-height: 150px;
+    overflow-y: auto;
+  }
+  
+  .messages-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 200px - 150px - 60px); /* 减去header, users panel, form, about section的高度 */
+  }
+  
+  .messages {
+    flex: 1;
+    height: 100%;
+    overflow-y: auto;
+  }
+  
+  .message-form {
+    padding: 10px;
   }
   
   .message {
@@ -378,5 +409,17 @@ body {
   .about-content {
     width: 95%;
     margin: 0 10px;
+  }
+  
+  /* 确保整个应用容器高度正确 */
+  .app {
+    height: 100vh;
+    display: flex;
+  }
+  
+  .chat-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
   }
 }
