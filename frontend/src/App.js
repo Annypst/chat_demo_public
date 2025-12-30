@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import './App.css';
 
@@ -12,6 +12,20 @@ const App = () => {
   const [showAbout, setShowAbout] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
+  
+  // 添加ref用于滚动到底部
+  const messagesContainerRef = useRef(null);
+
+  // 自动滚动到底部的函数
+  const scrollToBottom = () => {
+    if (messagesContainerRef.current) {
+      // 使用scrollTo方法，兼容性更好，特别是在移动设备上
+      messagesContainerRef.current.scrollTo({
+        top: messagesContainerRef.current.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   // 连接到服务器
   useEffect(() => {
@@ -59,6 +73,11 @@ const App = () => {
 
     return () => newSocket.close();
   }, []);
+
+  // 每当消息更新时，滚动到底部
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   // 加入聊天室
   const joinChat = () => {
@@ -159,7 +178,8 @@ const App = () => {
               </div>
               
               <div className="messages-panel">
-                <div className="messages">
+                {/* 添加ref到消息容器 */}
+                <div className="messages" ref={messagesContainerRef}>
                   {messages.map((msg, index) => (
                     <div key={index} className={`message ${msg.username === username ? 'own-message' : ''}`}>
                       <div className="message-header">
