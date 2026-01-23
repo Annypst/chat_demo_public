@@ -134,5 +134,5 @@ def run_server(port=5001):
         sys.exit(1)
 
 if __name__ == "__main__":
-    port = int(os.environ.get('AI_HANDLER_PORT', 5001))
+    port = int(os.environ.get('AI_HANDLER_PORT', 5002))
     run_server(port)

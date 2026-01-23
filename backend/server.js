@@ -34,7 +34,7 @@ async function handleAIRequest(message, socket) {
     const aiPrompt = message.split('@ai')[1].trim();
     
     // 尝试通过HTTP请求调用Python AI处理器
-    axios.post('http://localhost:5001/ai/process', {
+    axios.post('http://localhost:5002/ai/process', {
       message: aiPrompt
     }, {
       timeout: 30000 // 30秒超时

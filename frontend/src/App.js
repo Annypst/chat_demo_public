@@ -37,8 +37,8 @@ const App = () => {
         return 'http://localhost:3001'; // 本地开发环境
       } else {
         // 生产环境或远程访问，使用你的公网后端地址
-        // 这里需要根据你的公网后端地址进行调整
-        return 'frp-can.com:23315'; // 使用你的公网后端地址
+       
+        return 'frp-add.com:10673'; // 使用你的公网后端地址
       }
     };
 
